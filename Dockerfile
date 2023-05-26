@@ -143,7 +143,7 @@ WORKDIR /app
 
 RUN npm install -g @angular/cli
 
-COPY package.json .
+COPY package.json ./
 
 RUN npm cache clean --force
 
@@ -152,6 +152,8 @@ RUN npm cache clean --force
 
 
 COPY . .
+
+# RUN npm install
 
 EXPOSE 4200
 
