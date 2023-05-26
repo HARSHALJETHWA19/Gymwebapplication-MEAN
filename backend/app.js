@@ -11,7 +11,8 @@ app.use(bodyparser.json());
 
 var db;
 
-mongodb.connect("mongodb://localhost:27017/gymusers", (error, result) => {
+mongodb.connect("mongodb://localhost:27017/gymusers", { useUnifiedTopology: true }, (error, result) => {
+
     if (error) {
         console.log("DB Not Connected");
     }
