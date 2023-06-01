@@ -30,6 +30,15 @@ pipeline {
                         bat 'npm install -g @angular/cli'
                         bat 'npm install'
                         bat 'start /B cmd /c npm run build'
+
+                    // Start the development server
+                    bat 'start /B cmd /c npm start'
+
+                    // Wait for the server to start
+                    sleep 10
+
+                    // Open the application in the browser
+                    bat 'start /B cmd /c start http://localhost:4200'
                     }
                 }
             }
