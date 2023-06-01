@@ -1,14 +1,21 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'node' // Assumes you have configured Node.js in Jenkins Global Tool Configuration
+    }
     stages {
-       
+         stage('Checkout') {
+            steps {
+                git 'https://github.com/HARSHALJETHWA19/Gymwebapplication-MEAN.git'
+            }
+        }
 
         stage('Build Frontend') {
             steps {
                 // Install Node.js and npm if not already installed on the Jenkins machine
                 // Use a specific Node.js version if required
-                sh 'nvm install 14.20'
+//                 sh 'nvm install 14.20'
 
                 // Install Angular CLI globally
                 sh 'npm install -g @angular/cli'
@@ -17,7 +24,7 @@ pipeline {
                 sh 'npm install'
 
                 // Build the frontend
-                sh 'ng build'
+                sh 'npm run build'
             }
         }
 
@@ -25,7 +32,7 @@ pipeline {
             steps {
                 // Install Node.js and npm if not already installed on the Jenkins machine
                 // Use a specific Node.js version if required
-                sh 'nvm install 14.20'
+//                 sh 'nvm install 14.20'
 
                 // Install backend dependencies
                 sh 'npm install'
@@ -39,13 +46,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Start MongoDB
-                 sh 'ng build'
+                 sh 'npm run build'
 
                 // Start the Node.js backend server
                 sh 'node server.js'
 
                 // Serve the Angular frontend using a web server like Nginx or Apache
-                 sh 'nginx -c /path/to/nginx.conf'
+//                  sh 'nginx -c /path/to/nginx.conf'
 
                 // Add any additional deployment steps or configurations
                 // Example: sh 'kubectl apply -f deployment.yaml'
