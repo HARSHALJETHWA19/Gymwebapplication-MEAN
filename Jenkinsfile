@@ -12,11 +12,12 @@ pipeline {
                 script {
                     if (isUnix()) {
                         sh 'nohup npm install -g @angular/cli & npm install & npm run build'
-                        sh  
+                          
                     } else {
                         bat 'start /B npm install -g @angular/cli'
                     }
                 }
+           }
 
         stage('Build Backend') {
             steps {
