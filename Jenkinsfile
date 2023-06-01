@@ -4,6 +4,7 @@ pipeline {
     tools {
         nodejs 'node' // Assumes you have configured Node.js in Jenkins Global Tool Configuration
     }
+    
     stages {
         stage('Build Frontend') {
             steps {
@@ -11,7 +12,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'npm install -g @angular/cli'
                         sh 'npm install'
-                        sh 'nohup npm run build &'
+                        sh 'npm run build &'
                     } else {
                         bat 'npm install -g @angular/cli'
                         bat 'npm install'
@@ -24,9 +25,16 @@ pipeline {
         stage('Build Backend') {
             steps {
                 sh 'npm install --force'
-                sh 'nohup node server.js'
+                if (isUnix()) {
+                    sh 'node server.js &'
+                } else {
+                    bat 'start /B cmd /c node server.js'
+                }
             }
         }
+    }
+}
+
 
         // stage('Deploy') {
         //     steps {
