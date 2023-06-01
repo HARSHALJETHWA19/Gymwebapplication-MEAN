@@ -35,7 +35,9 @@ pipeline {
                     bat 'start /B cmd /c npm start'
 
                     // Wait for the server to start
+                    bat 'start /B cmd /c ng serve'
                     sleep 10
+                    
 
                     // Open the application in the browser
                     bat 'start /B cmd /c start http://localhost:4200'
