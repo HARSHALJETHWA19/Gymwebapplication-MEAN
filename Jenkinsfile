@@ -2,13 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout your source code from the repository
-                // You can use Git or any other version control system here
-                git 'https://github.com/HARSHALJETHWA19/Gymwebapplication-MEAN'
-            }
-        }
+       
 
         stage('Build Frontend') {
             steps {
