@@ -1,0 +1,24 @@
+# Use an official Node.js image as the base
+FROM node:14.20
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json files to the working directory
+COPY package*.json ./
+COPY package-lock.json .
+
+# Clear npm cache
+RUN npm cache clean --force
+
+# Install Node.js backend dependencies
+RUN npm install
+
+# Copy the entire backend code to the working directory
+COPY . .
+
+# Expose the backend's default port (adjust if necessary)
+EXPOSE 3000
+
+# Start the backend server
+CMD ["node", "server.js"]
