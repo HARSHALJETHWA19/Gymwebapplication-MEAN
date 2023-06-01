@@ -1,5 +1,5 @@
 # Use an official Node.js image as the base
-FROM node:14.20
+FROM node:16.15
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -10,9 +10,14 @@ COPY package-lock.json .
 
 # Clear npm cache
 RUN npm cache clean --force
+RUN npm install --legacy-peer-deps
+
 
 # Install Node.js backend dependencies
-RUN npm install
+RUN npm install @angular-devkit/build-angular
+RUN npm install @angular/compiler-cli
+
+RUN npm install --force
 
 # Copy the entire backend code to the working directory
 COPY . .

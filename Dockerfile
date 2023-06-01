@@ -1,9 +1,12 @@
 # Use an official Node.js image as the base
-FROM node:14.20
+FROM node:16.15
 
 # Set the working directory
 WORKDIR /usr/src/app
 RUN npm install -g @angular/cli
+RUN rm -rf node_modules
+
+
 
 
 # Copy package.json and package-lock.json files to the working directory
@@ -11,7 +14,9 @@ COPY package*.json ./
 COPY package-lock.json .
 
 # Install Angular dependencies
-RUN npm install
+RUN npm install @angular-devkit/build-angular
+RUN npm install @angular/compiler-cli
+RUN npm install --force
 
 # Copy the entire Angular project to the working directory
 COPY . .
