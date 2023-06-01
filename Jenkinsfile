@@ -16,7 +16,7 @@ pipeline {
                         sh 'npm install -g @angular/cli'
                         sh 'npm install'
                         sh 'npm run build '
-                        sh 'node server.js &'
+                        sh 'node server.js '
                          sh 'npm start &'
 
                     // Wait for the server to start
@@ -24,7 +24,7 @@ pipeline {
 
                     // Open the application in the browser
                     sh 'xdg-open http://localhost:4200'
-                    
+
                     } else {
                         bat 'npm install -g @angular/cli'
                         bat 'npm install'
