@@ -15,7 +15,7 @@ pipeline {
                     if (isUnix) {
                         sh 'npm install -g @angular/cli'
                         sh 'npm install'
-                        sh 'npm run build'
+                        sh 'ng build'
                         sh 'node server.js'
                         sh 'npm start'
 
