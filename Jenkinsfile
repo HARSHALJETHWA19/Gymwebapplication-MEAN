@@ -9,7 +9,10 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 script {
-                    if (isUnix()) {
+                    // Determine the operating system
+                    def isUnix = isUnixAgent()
+                    
+                    if (isUnix) {
                         sh 'npm install -g @angular/cli'
                         sh 'npm install'
                         sh 'npm run build &'
@@ -24,15 +27,19 @@ pipeline {
 
         stage('Build Backend') {
             steps {
-                if (isUnix()) {
-                     sh 'npm install --force'
-                    sh 'node server.js &'
+                sh 'npm install --force'
+                if (isUnixAgent()) {
+                    sh 'nohup node server.js &'
                 } else {
                     bat 'start /B cmd /c node server.js'
                 }
             }
         }
     }
+}
+
+def isUnixAgent() {
+    return env.WORKSPACE.isUnix()
 }
 
 
