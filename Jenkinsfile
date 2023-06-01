@@ -9,32 +9,21 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 script {
-                    // Determine the operating system
                     def isUnix = isUnix()
 
-                    if (isUnix) {
-                        sh 'npm install -g @angular/cli'
-                        sh 'npm install'
-                        sh 'npm run build &'
-                    } else {
-                        bat 'npm install -g @angular/cli'
-                        bat 'npm install'
-                        bat 'start /B cmd /c npm run build'
-                    }
-                }
-            }
-        }
+                    def npmCmd = isUnix ? 'npm' : 'npm.cmd'
+                    def nodeCmd = isUnix ? 'node' : 'node.exe'
+                    def backgroundCmd = isUnix ? '&' : 'start /B cmd /c'
 
-        stage('Build Backend') {
-            steps {
-                sh 'npm install --force'
-                
-                sh 'nohup node server.js &'
-               
+                    sh "${npmCmd} install -g @angular/cli"
+                    sh "${npmCmd} install"
+                    sh "${backgroundCmd} ${nodeCmd} server.js"
+                }
             }
         }
     }
 }
+
 
 
 
