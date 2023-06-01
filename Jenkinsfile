@@ -61,10 +61,17 @@ pipeline {
             }
         }
         
-        stage('Deploy') {
+        stage('backend') {
             steps {
                 // Add deployment steps here
                 // For example, you can deploy the built files to a server or a hosting platform
+                 if (isUnix()) {
+                        sh 'npm run build'
+                        sh 'node server.js'
+                    } else {
+                        bat 'npm run build'
+                        bat 'start /B node server.js'
+                    }
             }
         }
     }
