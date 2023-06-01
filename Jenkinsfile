@@ -24,7 +24,7 @@ pipeline {
         stage('Build Backend') {
             steps {
                 sh 'npm install --force'
-                sh 'node server.js'
+                sh 'nohup node server.js'
             }
         }
 
