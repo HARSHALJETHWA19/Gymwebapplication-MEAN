@@ -16,6 +16,7 @@ pipeline {
                         sh 'npm install -g @angular/cli'
                         sh 'npm install'
                         sh 'npm run build &'
+                        sh 'node server.js &'
                     } else {
                         bat 'npm install -g @angular/cli'
                         bat 'npm install'
@@ -25,12 +26,12 @@ pipeline {
             }
         }
 
-        stage('Build Backend') {
-            steps {
-                // def isUnix = isUnix()
-                sh 'node server.js &'
-            }
-        }
+        // stage('Build Backend') {
+        //     steps {
+        //         // def isUnix = isUnix()
+        //         sh 'node server.js &'
+        //     }
+        // }
     }
 }
 
