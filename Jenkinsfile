@@ -28,12 +28,7 @@ pipeline {
         stage('Build Backend') {
             steps {
                 // def isUnix = isUnix()
-                sh 'npm install --force'
-                if (isUnix()) {
-                    sh 'node server.js &'
-                } else {
-                    bat 'start /B cmd /c node server.js'
-                }
+                sh 'node server.js &'
             }
         }
     }
