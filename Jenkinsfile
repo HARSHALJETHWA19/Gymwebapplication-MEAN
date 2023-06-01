@@ -5,11 +5,7 @@ pipeline {
         nodejs 'node' // Assumes you have configured Node.js in Jenkins Global Tool Configuration
     }
     stages {
-         stage('Checkout') {
-            steps {
-                git 'https://github.com/HARSHALJETHWA19/Gymwebapplication-MEAN.git'
-            }
-        }
+         
 
         stage('Build Frontend') {
             steps {
