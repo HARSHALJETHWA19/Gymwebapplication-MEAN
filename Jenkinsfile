@@ -50,8 +50,8 @@ pipeline {
         //         // Additional deployment steps or configurations can be added here
         //     }
         // }
-    }
-}
+//     }
+// }
 
 // pipeline {
 //     agent any
