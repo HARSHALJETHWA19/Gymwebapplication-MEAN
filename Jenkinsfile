@@ -15,9 +15,10 @@ pipeline {
                     if (isUnix) {
                         sh 'npm install -g @angular/cli'
                         sh 'npm install'
-                        sh 'npm run build &'
-                        sh 'node server.js &'
-                         sh 'npm start &'
+                        sh 'npm run build'
+                        sh 'node server.js'
+                        sh 'npm start'
+
 
                     // Wait for the server to start
                     sleep 10
