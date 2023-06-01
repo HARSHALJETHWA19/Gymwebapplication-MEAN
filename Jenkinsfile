@@ -1,5 +1,3 @@
-import org.jenkinsci.plugins.JenkinsUtils
-
 pipeline {
     agent any
 
@@ -12,8 +10,8 @@ pipeline {
             steps {
                 script {
                     // Determine the operating system
-                    def isUnix = JenkinsUtils.isUnix()
-                    
+                    def isUnix = isUnix()
+
                     if (isUnix) {
                         sh 'npm install -g @angular/cli'
                         sh 'npm install'
@@ -30,7 +28,7 @@ pipeline {
         stage('Build Backend') {
             steps {
                 sh 'npm install --force'
-                if (JenkinsUtils.isUnix()) {
+                if (isUnix()) {
                     sh 'nohup node server.js &'
                 } else {
                     bat 'start /B cmd /c node server.js'
@@ -39,6 +37,7 @@ pipeline {
         }
     }
 }
+
 
 
 
