@@ -8,21 +8,15 @@ pipeline {
          
 
         stage('Build Frontend') {
-            steps {
-                // Install Node.js and npm if not already installed on the Jenkins machine
-                // Use a specific Node.js version if required
-//                 sh 'nvm install 14.20'
-
-                // Install Angular CLI globally
-                sh 'npm install -g @angular/cli'
-
-                // Install frontend dependencies
-                sh 'npm install'
-
-                // Build the frontend
-                sh 'npm run build'
-            }
-        }
+           steps {
+                script {
+                    if (isUnix()) {
+                        sh 'nohup npm install -g @angular/cli & npm install & npm run build'
+                        sh  
+                    } else {
+                        bat 'start /B npm install -g @angular/cli'
+                    }
+                }
 
         stage('Build Backend') {
             steps {
