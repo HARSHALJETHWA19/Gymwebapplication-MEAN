@@ -6,7 +6,7 @@ pipeline {
             steps {
                 // Checkout your source code from the repository
                 // You can use Git or any other version control system here
-                // Example: git 'https://github.com/your-repo.git'
+                git 'https://github.com/HARSHALJETHWA19/Gymwebapplication-MEAN'
             }
         }
 
@@ -40,26 +40,18 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                // // Run frontend tests
-                // sh 'cd frontend && ng test --watch=false'
-
-                // // Run backend tests
-                // sh 'cd backend && npm test'
-            }
-        }
+       
 
         stage('Deploy') {
             steps {
                 // Start MongoDB
-                // Example: sh 'docker-compose up -d mongo'
+                 sh 'ng build'
 
                 // Start the Node.js backend server
-                // Example: sh 'cd backend && node server.js'
+                sh 'node server.js'
 
                 // Serve the Angular frontend using a web server like Nginx or Apache
-                // Example: sh 'nginx -c /path/to/nginx.conf'
+                 sh 'nginx -c /path/to/nginx.conf'
 
                 // Add any additional deployment steps or configurations
                 // Example: sh 'kubectl apply -f deployment.yaml'
