@@ -13,36 +13,34 @@ pipeline {
                     def isUnix = isUnix()
 
                     if (isUnix) {
-                        sh 'npm install -g @angular/cli'
-                        sh 'npm install'
-                        sh 'npm run build'
-                        sh 'ng serve'
-
+                        retry(3) {
+                            sh 'npm install -g @angular/cli'
+                            sh 'npm install'
+                            sh 'npm run build'
+                            sh 'ng serve'
+                        }
                         // Wait for the server to start
                         sleep 10
-
                         // Open the application in the browser
                         sh 'xdg-open http://localhost:4200'
-
                     } else {
-                        bat 'npm install -g @angular/cli'
-                        bat 'npm install'
-                        bat 'npm run build'
-
-                        // Start the development server
-                        bat 'start /B cmd /c ng serve'
-
+                        retry(3) {
+                            bat 'npm install -g @angular/cli'
+                            bat 'npm install'
+                            bat 'start /B cmd /c npm run build'
+                            // Start the development server
+                            bat 'start /B cmd /c ng serve'
+                        }
                         // Wait for the server to start
                         sleep 10
-
                         // Open the application in the browser
-                        bat 'start http://localhost:4200'
+                        bat 'start /B cmd /c start http://localhost:4200'
                     }
-
-                    sh 'timeout 9999 >NUL' // To keep the pipeline running
+                    sh 'tail -f /dev/null'
                 }
             }
         }
+
 
         stage('Build Backend') {
             steps {
