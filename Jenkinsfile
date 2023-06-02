@@ -17,72 +17,72 @@ pipeline {
                         sh 'npm install'
                         sh 'npm run build'
                         sh 'ng serve'
-                        // sh 'node server.js'
-                        // sh 'npm start'
 
+                        // Wait for the server to start
+                        sleep 10
 
-                    // Wait for the server to start
-                    sleep 10
-
-                    // Open the application in the browser
-                    sh 'xdg-open http://localhost:4200'
+                        // Open the application in the browser
+                        sh 'xdg-open http://localhost:4200'
 
                     } else {
                         bat 'npm install -g @angular/cli'
                         bat 'npm install'
-                        bat 'start /B cmd /c npm run build'
+                        bat 'npm run build'
 
-                    // Start the development server
-                    // bat 'start /B cmd /c npm start'
+                        // Start the development server
+                        bat 'start /B cmd /c ng serve'
 
-                    // Wait for the server to start
-                    bat 'start /B cmd /c ng serve'
-                    sleep 10
-                    
+                        // Wait for the server to start
+                        sleep 10
 
-                    // Open the application in the browser
-                    bat 'start /B cmd /c start http://localhost:4200'
+                        // Open the application in the browser
+                        bat 'start http://localhost:4200'
                     }
-                     sh 'tail -f /dev/null'
+
+                    sh 'timeout 9999 >NUL' // To keep the pipeline running
                 }
             }
         }
 
         stage('Build Backend') {
-             steps {
-         script {
+            steps {
+                script {
                     // Determine the operating system
                     def isUnix = isUnix()
 
                     if (isUnix) {
+                        // Uncomment the necessary commands for Unix systems
                         // sh 'npm install -g @angular/cli'
                         // sh 'npm install'
                         // sh 'ng build'
+
                         sh 'node server.js'
-                        sh 'npm start'
+                        // sh 'npm start'
 
+                        // Wait for the server to start
+                        sleep 10
 
-                    // Wait for the server to start
-                    sleep 10
-
-                    // Open the application in the browser
-                    sh 'xdg-open http://localhost:3000'
-
+                        // Open the application in the browser
+                        sh 'xdg-open http://localhost:3000'
                     } else {
+                        // Uncomment the necessary commands for Windows systems
                         // bat 'npm install -g @angular/cli'
-                        bat 'node server.js'
-                        // bat 'start /B cmd /c npm run build'
+                        // bat 'npm install'
+                        // bat 'npm run build'
 
-                    // Open the application in the browser
-                    bat 'start http://localhost:3000'
+                        bat 'node server.js'
+
+                        // Open the application in the browser
+                        bat 'start http://localhost:3000'
                     }
-                     sh 'tail -f /dev/null'
+
+                    sh 'timeout 9999 >NUL' // To keep the pipeline running
                 }
-         
+            }
         }
     }
 }
-}
+
 
 
 
