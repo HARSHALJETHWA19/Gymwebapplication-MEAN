@@ -49,6 +49,7 @@ pipeline {
         }
 
         stage('Build Backend') {
+             steps {
          script {
                     // Determine the operating system
                     def isUnix = isUnix()
@@ -80,6 +81,7 @@ pipeline {
          
         }
     }
+}
 }
 
 
