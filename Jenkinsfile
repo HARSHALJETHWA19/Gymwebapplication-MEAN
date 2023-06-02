@@ -27,6 +27,7 @@ pipeline {
                         retry(3) {
                             bat 'npm install -g @angular/cli'
                             bat 'npm install'
+                             bat 'npx ngcc --kill' 
                             bat 'start /B cmd /c npm run build'
                             // Start the development server
                             // bat 'ng serve'
