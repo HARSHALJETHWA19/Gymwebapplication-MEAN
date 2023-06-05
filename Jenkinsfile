@@ -48,12 +48,14 @@ pipeline {
                     // Determine the operating system
                     def isUnix = isUnix()
 
-if (isUnix) {
+                if (isUnix) {
                         // Uncomment the necessary commands for Unix systems
-                        // sh 'npm install -g @angular/cli'
-                        // sh 'npm install'
-                        // sh 'docker run -p 4200:4200 -d harshal1903/backend-app:latest'
-                        sh 'node server.js'
+                         sh 'npm install -g @angular/cli'
+                            sh 'npm install'
+                            sh 'npm run build'
+                            // Start the Angular app in a Docker container
+                            sh 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/backend-app:latest'
+                            sh 'node server.js'
                         // sh 'npm start'
 
                         // Wait for the server to start
@@ -63,12 +65,11 @@ if (isUnix) {
                         sh 'xdg-open http://localhost:3000'
                     } else {
                         // Uncomment the necessary commands for Windows systems
-                        // bat 'npm install -g @angular/cli'
-                        // bat 'npm install'
-                        // bat 'npm run build'
-                        // bat 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/backend-app:latest'
-
-                        bat 'start /B cmd /c start node server.js'
+                            bat 'npm install -g @angular/cli'
+                            bat 'npm install'
+                            bat 'npm run build'
+                            // Start the Angular app in a Docker container
+                            bat 'docker run -p 4200:4200 -d harshal1903/backend-app:latest'
 
                         // Open the application in the browser
                         bat 'start /B cmd /c start http://localhost:3000'
