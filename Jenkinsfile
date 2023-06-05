@@ -17,7 +17,8 @@ pipeline {
                             sh 'npm install -g @angular/cli'
                             sh 'npm install'
                             sh 'npm run build'
-                            sh 'ng serve'
+                            // Start the Angular app in a Docker container
+                            sh 'docker run -p 4200:4200 -d harshal1903/frontend-app:latest'
                         }
                         // Wait for the server to start
                         sleep 10
@@ -27,17 +28,15 @@ pipeline {
                         retry(3) {
                             bat 'npm install -g @angular/cli'
                             bat 'npm install'
-                            //  bat 'npx ngcc --kill' 
-                            bat 'start /B cmd /c npm run build'
-                            // Start the development server
-                            // bat 'ng serve'
+                            bat 'npm run build'
+                            // Start the Angular app in a Docker container
+                            bat 'docker run -p 4200:4200 -d harshal1903/frontend-app:latest'
                         }
                         // Wait for the server to start
                         sleep 10
                         // Open the application in the browser
                         bat 'start http://localhost:4200'
                     }
-                    // sh 'tail -f /dev/null'
                 }
             }
         }
@@ -51,36 +50,27 @@ pipeline {
 
                     if (isUnix) {
                         // Uncomment the necessary commands for Unix systems
-                        // sh 'npm install -g @angular/cli'
-                        // sh 'npm install'
-                        // sh 'ng build'
-
-                        sh 'node server.js'
-                        // sh 'npm start'
-
                         // Wait for the server to start
+                         sh 'docker run -p 4200:4200 -d harshal1903/backend-app:latest'
                         sleep 10
-
                         // Open the application in the browser
                         sh 'xdg-open http://localhost:3000'
                     } else {
                         // Uncomment the necessary commands for Windows systems
-                        // bat 'npm install -g @angular/cli'
-                        // bat 'npm install'
-                        // bat 'npm run build'
-
-                        bat 'node server.js'
-
+                        // Wait for the server to start
+                         bat 'docker run -p 4200:4200 -d harshal1903/backend-app:latest'
+                        sleep 10
                         // Open the application in the browser
                         bat 'start http://localhost:3000'
                     }
 
-                    sh 'timeout 9999 >NUL' // To keep the pipeline running
+                    // sh 'timeout 9999 >NUL' // To keep the pipeline running
                 }
             }
         }
     }
 }
+
 
 
 
