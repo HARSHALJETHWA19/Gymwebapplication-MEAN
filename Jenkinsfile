@@ -54,7 +54,7 @@ pipeline {
                             sh 'npm install'
                             sh 'npm run build'
                             // Start the Angular app in a Docker container
-                            sh 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/backend-app:latest'
+                            sh 'start /B cmd /c start docker run -p 3000:3000 -d harshal1903/backend-app:latest'
                             sh 'node server.js'
                         // sh 'npm start'
 
@@ -69,7 +69,7 @@ pipeline {
                             bat 'npm install'
                             bat 'npm run build'
                             // Start the Angular app in a Docker container
-                            bat 'docker run -p 4200:4200 -d harshal1903/backend-app:latest'
+                            bat 'docker run -p 3000:3000 -d harshal1903/backend-app:latest'
 
                         // Open the application in the browser
                         bat 'start /B cmd /c start http://localhost:3000'
