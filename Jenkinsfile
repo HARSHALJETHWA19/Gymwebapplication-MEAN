@@ -59,7 +59,7 @@ pipeline {
                         // Uncomment the necessary commands for Windows systems
                         // Wait for the server to start
                          bat 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/backend-app:latest'
-                        sleep 10
+                        
                         // Open the application in the browser
                         bat 'start /B cmd /c start http://localhost:3000'
                     }
