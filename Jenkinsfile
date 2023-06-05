@@ -35,7 +35,7 @@ pipeline {
                         // Wait for the server to start
                         sleep 10
                         // Open the application in the browser
-                        bat 'start http://localhost:4200'
+                        bat 'start /B cmd /c start http://localhost:4200'
                     }
                 }
             }
@@ -61,7 +61,7 @@ pipeline {
                          bat 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/backend-app:latest'
                         sleep 10
                         // Open the application in the browser
-                        bat 'start http://localhost:3000'
+                        bat 'start /B cmd /c start http://localhost:3000'
                     }
 
                     // sh 'timeout 9999 >NUL' // To keep the pipeline running
