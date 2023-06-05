@@ -48,20 +48,30 @@ pipeline {
                     // Determine the operating system
                     def isUnix = isUnix()
 
-                    if (isUnix) {
+if (isUnix) {
                         // Uncomment the necessary commands for Unix systems
+                        // sh 'npm install -g @angular/cli'
+                        // sh 'npm install'
+                        // sh 'ng build'
+
+                        sh 'node server.js'
+                        // sh 'npm start'
+
                         // Wait for the server to start
-                         sh 'docker run -p 4200:4200 -d harshal1903/backend-app:latest'
                         sleep 10
+
                         // Open the application in the browser
                         sh 'xdg-open http://localhost:3000'
                     } else {
                         // Uncomment the necessary commands for Windows systems
-                        // Wait for the server to start
-                         bat 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/backend-app:latest'
-                        
+                        // bat 'npm install -g @angular/cli'
+                        // bat 'npm install'
+                        // bat 'npm run build'
+
+                        bat 'node server.js'
+
                         // Open the application in the browser
-                        bat 'start /B cmd /c start http://localhost:3000'
+                        bat 'start http://localhost:3000'
                     }
 
                     // sh 'timeout 9999 >NUL' // To keep the pipeline running
