@@ -52,7 +52,7 @@ if (isUnix) {
                         // Uncomment the necessary commands for Unix systems
                         // sh 'npm install -g @angular/cli'
                         // sh 'npm install'
-                        sh 'docker run -p 4200:4200 -d harshal1903/backend-app:latest'
+                        // sh 'docker run -p 4200:4200 -d harshal1903/backend-app:latest'
                         sh 'node server.js'
                         // sh 'npm start'
 
@@ -66,7 +66,7 @@ if (isUnix) {
                         // bat 'npm install -g @angular/cli'
                         // bat 'npm install'
                         // bat 'npm run build'
-                        bat 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/backend-app:latest'
+                        // bat 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/backend-app:latest'
 
                         bat 'start /B cmd /c start node server.js'
 
