@@ -30,7 +30,7 @@ pipeline {
                             bat 'npm install'
                             bat 'npm run build'
                             // Start the Angular app in a Docker container
-                            bat 'docker run -p 4200:4200 -d harshal1903/frontend-app:latest'
+                            bat 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/frontend-app:latest'
                         }
                         // Wait for the server to start
                         sleep 10
@@ -58,7 +58,7 @@ pipeline {
                     } else {
                         // Uncomment the necessary commands for Windows systems
                         // Wait for the server to start
-                         bat 'docker run -p 4200:4200 -d harshal1903/backend-app:latest'
+                         bat 'start /B cmd /c start docker run -p 4200:4200 -d harshal1903/backend-app:latest'
                         sleep 10
                         // Open the application in the browser
                         bat 'start http://localhost:3000'
