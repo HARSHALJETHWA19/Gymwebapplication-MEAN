@@ -68,10 +68,10 @@ if (isUnix) {
                         // bat 'npm install'
                         // bat 'npm run build'
 
-                        bat 'node server.js'
+                        bat 'start /B cmd /c startnode server.js'
 
                         // Open the application in the browser
-                        bat 'start http://localhost:3000'
+                        bat 'start /B cmd /c start http://localhost:3000'
                     }
 
                     // sh 'timeout 9999 >NUL' // To keep the pipeline running
