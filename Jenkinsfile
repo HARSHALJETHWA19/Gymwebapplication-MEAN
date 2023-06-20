@@ -7,13 +7,19 @@ pipeline {
     }
 
      stages {
-         stage('Install Docker') {
-            steps {
-                     sh 'sudo apt install docker'
-                // sh 'chmod +x get-docker.sh'
-                // sh 'sudo ./get-docker.sh'
-            }
+        stage('Install Docker') {
+    agent {
+        docker {
+            image 'docker:stable'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
+    }
+    steps {
+        sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+        sh 'chmod +x get-docker.sh'
+        sh './get-docker.sh'
+    }
+}
 
         stage('Pull Docker Image') {
             steps {
