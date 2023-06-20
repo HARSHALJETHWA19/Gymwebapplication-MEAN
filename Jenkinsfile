@@ -6,7 +6,8 @@ pipeline {
         // docker 'docker'// Assumes you have configured Node.js in Jenkins Global Tool Configuration
     }
 
-     stage('Install Docker') {
+     stages {
+         stage('Install Docker') {
             steps {
                 sh 'curl -fsSL https://get.docker.com | sudo sh'
             }
