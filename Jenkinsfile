@@ -4,8 +4,20 @@ pipeline {
     tools {
         nodejs 'node' // Assumes you have configured Node.js in Jenkins Global Tool Configuration
     }
-    
-    stages {
+
+     stages {
+        stage('Pull Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    sh "docker login -u harshal1903 -p Harshal190103 my-docker-registry.com"
+                    // sh "docker pull my-docker-registry.com/my-image:tag"
+                    sh "docker pull harshal1903/backend-app:latest"
+                  sh "docker pull harshal1903/frontend-app:latest"
+                  sh "docker pull harshal1903/my-mongodb"
+                }
+            }
+        }
+
         stage('Build Frontend') {
             steps {
                 script {
