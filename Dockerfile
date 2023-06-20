@@ -6,10 +6,11 @@ FROM node:14.20
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-COPY package-lock.json .
 
-RUN npm cache clean --force
+
+# RUN npm cache clean --force
 RUN npm install -g @angular/cli
+RUN npm install express
 RUN npm install --legacy-peer-deps
 
 # Copy the entire Angular project to the working directory

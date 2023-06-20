@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const bodyparser = require("body-parser");
+const { url } = require("inspector");
 const mongodb = require("mongodb").MongoClient;
+const connectionString = process.env.MONGODB_CONNECTION_STRING;
 
 const app = express();
 
@@ -9,22 +11,30 @@ app.use(cors());
 
 app.use(bodyparser.json());
 
-var db;
-
-mongodb.connect("mongodb://localhost:27017/gymusers", { useUnifiedTopology: true }, (error, result) => {
-
+// var db;
+// const url = 'mongodb+srv://jethwaharshal5:Harshal19@cluster0.rz3xfvy.mongodb.net/';
+mongodb.connect("mongodb+srv://jethwaharshal5:Harshal19@cluster0.rz3xfvy.mongodb.net/", { useUnifiedTopology: false }, (error, client) => 
+ {
     if (error) {
         console.log("DB Not Connected");
-    }
-    else {
-        db = result.db("gymusers");
+        console.log(error);
+    } else {
+        db = client.db("gymusers");
+        db.createCollection("users", (error, result) => {
+            if (error) {
+                console.log("Error creating collection:", error);
+            } else {
+                console.log("Collection 'users' created successfully");
+            }
+        });
         console.log("DB Connected");
+
+        // Start the server only if the database connection is successful
+        // app.listen(3000, () => {
+        //     console.log("Server started on port 3000");
+        // });
     }
 });
-
-    
-
-
 app.use((req, res, next) => {             // middleware common for all the paths
 
     console.log("Middleware 1");

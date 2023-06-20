@@ -1,24 +1,38 @@
-version: "3"
+version: '3'
 services:
-  angular-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  frontend:
+    image: harshal1903/frontend-app:latest
     ports:
-      - "4200:4200"
-    depends_on:
-      - node-backend
-  node-backend:
-    build:
-      context: backend
-      dockerfile: Dockerfile-node
+      - 4200:4200
+    networks:
+      - app-network
+
+  backend:
+    # build:
+    #   dockerfile: backend/Dockerfile-node
+    image: harshal1903/backend-app:latest
     ports:
-      - "3000:3000"
-    environment:
-      - MONGODB_URI=mongodb://localhost:27017/gymusers
+      - 3003:3000
+    networks:
+      - app-network
     depends_on:
       - mongodb
+
   mongodb:
     image: mongo
     ports:
-      - "27017:27017"
+      - 27017:27017
+    networks:
+      - app-network
+    volumes:
+      - mongodb_data:/data/db
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+
+
+# net stop winnat

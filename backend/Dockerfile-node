@@ -2,15 +2,20 @@
 FROM node:14.20
 
 # Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy package.json and package-lock.json files to the working directory
 COPY package*.json ./
 COPY package-lock.json .
 
 # Clear npm cache
-RUN npm cache clean --force
-RUN npm install --legacy-peer-deps
+# RUN npm cache clean --force
+# RUN npm install -g @angular/cli
+RUN npm install express
+RUN npm install mongo
+# RUN npm install express --registry=https://registry.npmjs.org/
+
+RUN npm install --legacy-peer-dep
 
 # Copy the entire backend code to the working directory
 COPY . .
