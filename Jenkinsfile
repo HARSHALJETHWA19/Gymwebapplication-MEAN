@@ -9,7 +9,9 @@ pipeline {
      stages {
          stage('Install Docker') {
             steps {
-                sh 'curl -fsSL https://get.docker.com | sudo sh'
+                     sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+                sh 'chmod +x get-docker.sh'
+                sh './get-docker.sh'
             }
         }
 
