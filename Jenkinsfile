@@ -24,6 +24,7 @@ pipeline {
                   sh "docker pull harshal1903/my-mongodb"
                 }
             }
+        }
         
 
         stage('Build Frontend') {
