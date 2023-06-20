@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         nodejs 'node' 
-        docker 'docker'// Assumes you have configured Node.js in Jenkins Global Tool Configuration
+        // docker 'docker'// Assumes you have configured Node.js in Jenkins Global Tool Configuration
     }
 
      stages {
