@@ -7,6 +7,21 @@ pipeline {
     }
 
      stages {
+         stage('Install Docker') {
+            steps {
+                script {
+                    // Install Docker
+                    sh 'curl -fsSL https://get.docker.com | sh'
+                    
+                    // Add Jenkins user to the docker group
+                    sh 'sudo usermod -aG docker jenkins'
+                    
+                    // Restart Docker service
+                    sh 'sudo service docker restart'
+                }
+            }
+        }
+        
         stage('Pull Docker Image') {
             steps {
                 // withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
