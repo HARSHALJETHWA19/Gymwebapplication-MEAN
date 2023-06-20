@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'node' // Assumes you have configured Node.js in Jenkins Global Tool Configuration
+        nodejs 'node' 
+        dockerTool 'docker'// Assumes you have configured Node.js in Jenkins Global Tool Configuration
     }
 
      stages {
