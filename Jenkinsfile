@@ -6,26 +6,17 @@ pipeline {
         // docker 'docker'// Assumes you have configured Node.js in Jenkins Global Tool Configuration
     }
 
-     stages {
-         stage('Install Docker') {
+     stage('Install Docker') {
             steps {
-                script {
-                    // Install Docker
-                    sh 'curl -fsSL https://get.docker.com | sh'
-                    
-                    // Add Jenkins user to the docker group
-                    sh 'sudo usermod -aG docker jenkins'
-                    
-                    // Restart Docker service
-                    sh 'sudo service docker restart'
-                }
+                sh 'curl -fsSL https://get.docker.com | sudo sh'
             }
         }
-        
+
         stage('Pull Docker Image') {
             steps {
-                // withCredentials([usernamePassword(credentialsId: 'docker-registry-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                    sh "docker login -u harshal1903 -p Harshal190103"
+                withDockerRegistry([credentialsId: 'docker-registry-credentials', url: 'https://my-docker-registry.com']) {
+                    sh 'docker login -u harshal1903 -p Harshal190103'
+
                     // sh "docker pull my-docker-registry.com/my-image:tag"
                     sh "docker pull harshal1903/backend-app:latest"
                   sh "docker pull harshal1903/frontend-app:latest"
