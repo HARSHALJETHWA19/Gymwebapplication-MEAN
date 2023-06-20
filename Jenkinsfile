@@ -9,7 +9,7 @@ pipeline {
      stages {
          stage('Install Docker') {
             steps {
-                     sh 'apt install docker'
+                     sh 'sudo apt install docker'
                 // sh 'chmod +x get-docker.sh'
                 // sh 'sudo ./get-docker.sh'
             }
