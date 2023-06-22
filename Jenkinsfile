@@ -7,32 +7,32 @@ pipeline {
     }
 
      stages {
-        stage('Install Docker') {
-    agent {
-        docker {
-            image 'docker:stable'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
-    steps {
-        sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-        sh 'chmod +x get-docker.sh'
-        sh './get-docker.sh'
-    }
-}
+//         stage('Install Docker') {
+//     agent {
+//         docker {
+//             image 'docker:stable'
+//             args '-v /var/run/docker.sock:/var/run/docker.sock'
+//         }
+//     }
+//     steps {
+//         sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+//         sh 'chmod +x get-docker.sh'
+//         sh './get-docker.sh'
+//     }
+// }
 
-        stage('Pull Docker Image') {
-            steps {
-                withDockerRegistry([credentialsId: 'docker-registry-credentials', url: 'https://my-docker-registry.com']) {
-                    sh 'docker login -u harshal1903 -p Harshal190103'
+        // stage('Pull Docker Image') {
+        //     steps {
+        //     //     withDockerRegistry([credentialsId: 'docker-registry-credentials', url: 'https://my-docker-registry.com']) {
+        //     //         sh 'docker login -u harshal1903 -p Harshal190103'
 
-                    // sh "docker pull my-docker-registry.com/my-image:tag"
-                    sh "docker pull harshal1903/backend-app:latest"
-                  sh "docker pull harshal1903/frontend-app:latest"
-                  sh "docker pull harshal1903/my-mongodb"
-                }
-            }
-        }
+        //             // sh "docker pull my-docker-registry.com/my-image:tag"
+        //             sh "docker pull harshal1903/backend-app:latest"
+        //           sh "docker pull harshal1903/frontend-app:latest"
+        //           sh "docker pull harshal1903/my-mongodb:latest"
+        //         }
+        //     }
+        // }
         
 
         stage('Build Frontend') {
@@ -82,11 +82,11 @@ pipeline {
                             sh 'npm install'
                             sh 'npm run build'
                             // Start the backend app in a Docker container
-                            sh 'docker run -p 3000:3000 -d -e MONGO_HOST=localhost -e MONGO_PORT=27017 harshal1903/backend-app:latest'
+                            sh 'docker run -p 3000:3000 -d -e MONGO_HOST=0.0.0.0 -e MONGO_PORT=27017 harshal1903/backend-app:latest'
                             // Wait for the server to start
                             sleep 10
                             // Connect to MongoDB
-                            sh 'docker run -it -e MONGO_HOST=localhost -d -e MONGO_PORT=27017 my-mongodb  mongosh "mongodb+srv://cluster0.rz3xfvy.mongodb.net/" --apiVersion 1 --username jethwaharshal5 --password Harshal19'
+                            sh 'docker run -it -e MONGO_HOST=0.0.0.0 -d -e MONGO_PORT=27017 my-mongodb  mongosh "mongodb+srv://cluster0.rz3xfvy.mongodb.net/" --apiVersion 1 --username jethwaharshal5 --password Harshal19'
                         }
                         // Open the application in the browser
                         sh 'xdg-open http://localhost:3000'
@@ -96,12 +96,12 @@ pipeline {
                             bat 'npm install'
                             bat 'npm run build'
                             // Start the backend app in a Docker container
-                            bat 'docker run -p 3000:3000 -d -e MONGO_HOST=localhost -e MONGO_PORT=27017 harshal1903/backend-app:latest'
+                            bat 'docker run -p 3000:3000 -d -e MONGO_HOST=0.0.0.0 -e MONGO_PORT=27017 harshal1903/backend-app:latest'
                         }
                         // Wait for the server to start
                         sleep 10
                         // Connect to MongoDB
-                        bat 'docker run -d -it -e MONGO_HOST=localhost -e MONGO_PORT=27017 my-mongodb  mongosh "mongodb+srv://cluster0.rz3xfvy.mongodb.net/" --apiVersion 1 --username jethwaharshal5 --password Harshal19'
+                        bat 'docker run -d -it -e MONGO_HOST=0.0.0.0 -e MONGO_PORT=27017 my-mongodb  mongosh "mongodb+srv://cluster0.rz3xfvy.mongodb.net/" --apiVersion 1 --username jethwaharshal5 --password Harshal19'
                         // Open the application in the browser
                         bat 'start /B cmd /c start http://localhost:3000'
                     }
