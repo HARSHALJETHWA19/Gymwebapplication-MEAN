@@ -86,7 +86,7 @@ pipeline {
                             // Wait for the server to start
                             sleep 10
                             // Connect to MongoDB
-                            sh 'docker run -it -e MONGO_HOST=0.0.0.0 -d -e MONGO_PORT=27017 my-mongodb  mongosh "mongodb+srv://cluster0.rz3xfvy.mongodb.net/" --apiVersion 1 --username jethwaharshal5 --password Harshal19'
+                            sh 'docker run -it -e MONGO_HOST=0.0.0.0 -d -e MONGO_PORT=27017 my-mongodb:latest  mongosh "mongodb+srv://cluster0.rz3xfvy.mongodb.net/" --apiVersion 1 --username jethwaharshal5 --password Harshal19'
                         }
                         // Open the application in the browser
                         sh 'xdg-open http://localhost:3000'
@@ -101,7 +101,7 @@ pipeline {
                         // Wait for the server to start
                         sleep 10
                         // Connect to MongoDB
-                        bat 'docker run -d -it -e MONGO_HOST=0.0.0.0 -e MONGO_PORT=27017 my-mongodb  mongosh "mongodb+srv://cluster0.rz3xfvy.mongodb.net/" --apiVersion 1 --username jethwaharshal5 --password Harshal19'
+                        bat 'docker run -d -it -e MONGO_HOST=0.0.0.0 -e MONGO_PORT=27017 my-mongodb:latest  mongosh "mongodb+srv://cluster0.rz3xfvy.mongodb.net/" --apiVersion 1 --username jethwaharshal5 --password Harshal19'
                         // Open the application in the browser
                         bat 'start /B cmd /c start http://localhost:3000'
                     }
